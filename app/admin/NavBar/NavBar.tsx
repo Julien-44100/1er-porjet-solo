@@ -19,8 +19,16 @@ export default function NavBar({ user }: NavBarProps) {
 
 	return (
 		<div className={styles.navbar}>
-			{alternator[1] && <button type="button">Connexion</button>}
-			{alternator[0] && <button type="button">Inscription</button>}
+			{alternator[1] && (
+				<button type="button" className={styles.authButton}>
+					Connexion
+				</button>
+			)}
+			{alternator[0] && (
+				<button type="button" className={styles.authButton}>
+					Inscription
+				</button>
+			)}
 		</div>
 	);
 }
