@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import styles from "./Connexion.module.css";
+import styles from "./inscription.module.css"; // vous pouvez garder ce nom de fichier CSS si vous le souhaitez
 
-export default function Connexion() {
+export default function Inscriptionpage() {
 	const router = useRouter();
 
 	const handleClick = (e: React.FormEvent) => {
@@ -12,9 +12,9 @@ export default function Connexion() {
 	};
 
 	return (
-		<div className={styles.connexion}>
-			<form className={styles.cardConnexion}>
-				<h1 className={styles.connexionH1}>Connexion</h1>
+		<div className={styles.inscription}>
+			<form className={styles.cardInsctiption}>
+				<h1 className={styles.inscriptionh1}>Inscription</h1>
 
 				<label htmlFor="email">Adresse mail</label>
 				<input
@@ -23,10 +23,10 @@ export default function Connexion() {
 					name="email"
 					placeholder="Enter your email"
 					required
-					className={styles.input}
+					className={styles.inputinscription}
 				/>
 
-				<label htmlFor="password" className={styles.password}>
+				<label htmlFor="password" className={styles.passwordinscription}>
 					Mot de passe
 				</label>
 				<input
@@ -35,11 +35,15 @@ export default function Connexion() {
 					name="password"
 					placeholder="Enter your password"
 					required
-					className={styles.input}
+					className={styles.inputinscription}
 				/>
 
-				<button type="button" onClick={handleClick} className={styles.submit}>
-					Se connecter
+				<button
+					type="button"
+					onClick={handleClick}
+					className={styles.submitinscription}
+				>
+					S'inscrire
 				</button>
 			</form>
 		</div>
