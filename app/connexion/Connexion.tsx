@@ -16,7 +16,7 @@ export default function Connexion() {
 			<form className={styles.cardConnexion}>
 				<h1 className={styles.connexionH1}>Connexion</h1>
 
-				<label htmlFor="email">Adresse mail</label>
+				<label htmlFor="email">Adres mail</label>
 				<input
 					type="email"
 					id="email"
