@@ -1,21 +1,17 @@
+// lib/db.ts  (à la racine du projet, pas dans pages/)
 import mysql from "mysql2/promise";
 
-// Variables d'environnement avec valeurs par défaut
-const DB_HOST = process.env.DB_HOST || "localhost";
-const DB_USER = process.env.DB_USER || "root";
-const DB_PASSWORD = process.env.DB_PASSWORD || "";
-const DB_DATABASE = process.env.DB_DATABASE || "my_app_db";
-
-// Fonction de création de connexion
 export async function createConnection() {
-	// Création de la connexion MySQL
-	const connection = await mysql.createConnection({
-		host: DB_HOST,
-		user: DB_USER,
-		password: DB_PASSWORD,
-		database: DB_DATABASE,
-	});
+	// DEBUG : vérifiez bien que vos variables sont chargées
+	console.log("→ DB_HOST =", process.env.DB_HOST);
+	console.log("→ DB_USER =", process.env.DB_USER);
+	console.log("→ DB_PASSWORD =", process.env.DB_PASSWORD ? "✓" : "✗ (vide)");
+	console.log("→ DB_DATABASE =", process.env.DB_DATABASE);
 
-	// Retourne l'objet connexion
-	return connection;
+	return await mysql.createConnection({
+		host: process.env.DB_HOST,
+		user: process.env.DB_USER,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_DATABASE,
+	});
 }
