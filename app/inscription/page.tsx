@@ -59,7 +59,7 @@ export default function Inscriptionpage() {
 				/>
 
 				<label htmlFor="password" className={styles.passwordinscription}>
-					Mot de passe
+					Mot de pass
 				</label>
 				<input
 					type="password"
