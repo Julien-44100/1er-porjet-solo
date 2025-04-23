@@ -1,6 +1,7 @@
 // app/layout.tsx
 import "./globals.css";
 import NavBar from "./NavBar/NavBar";
+import Footer from "./footer/Footer";
 // import Connexion from "./connexion/Connexion";
 
 export default function RootLayout({
@@ -13,6 +14,7 @@ export default function RootLayout({
 			<body>
 				<NavBar />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);
