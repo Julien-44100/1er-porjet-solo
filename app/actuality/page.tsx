@@ -13,13 +13,13 @@ type ActualityType = {
 export default function Actuality() {
 	const [actualities, setActualities] = useState<ActualityType[]>([]);
 
+	// app/actuality/page.tsx
+	// app/actuality/page.tsx
 	useEffect(() => {
-		fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/actualities"`)
+		fetch("/api/actualities") // appel relatif (même domaine)
 			.then((res) => res.json())
 			.then((data) => setActualities(data))
-			.catch((err) =>
-				console.error("Erreur lors de la récupération des actualités :", err),
-			);
+			.catch(console.error);
 	}, []);
 
 	return (
