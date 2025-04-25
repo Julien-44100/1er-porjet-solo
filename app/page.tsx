@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./connexion/Connexion.module.css";
 
@@ -8,7 +8,7 @@ export default function Connexion() {
 
 	const handleClick = (e: React.FormEvent) => {
 		e.preventDefault();
-		// router.push("/Actuality");
+		router.push("/Actualitypage");
 	};
 
 	return (
@@ -37,8 +37,11 @@ export default function Connexion() {
 					required
 					className={styles.input}
 				/>
-
-				<button type="button" onClick={handleClick} className={styles.submit}>
+				<button
+					type="button"
+					onClick={() => router.push("/actuality")}
+					className={styles.submit}
+				>
 					Se connecter
 				</button>
 			</form>

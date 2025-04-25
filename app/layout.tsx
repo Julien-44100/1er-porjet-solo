@@ -2,6 +2,7 @@
 import "./globals.css";
 import NavBar from "./NavBar/NavBar";
 import Footer from "./footer/Footer";
+import Actualitypage from "./actuality/page";
 // import Connexion from "./connexion/Connexion";
 
 export default function RootLayout({
