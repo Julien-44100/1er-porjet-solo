@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // <-- Import du hook pour connaître la route
+import { usePathname } from "next/navigation";
 import styles from "./NavBar.module.css";
 
 export default function NavBar() {
@@ -23,6 +23,15 @@ export default function NavBar() {
 				<Link href="/">
 					<button type="button" className={styles.authButton}>
 						Connexion
+					</button>
+				</Link>
+			)}
+
+			{/* **Seulement** quand on est sur "/actuality" */}
+			{pathname === "/actuality" && (
+				<Link href="/addactuality">
+					<button type="button" className={styles.authButton}>
+						Add Actuality
 					</button>
 				</Link>
 			)}
