@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./Actuality.module.css";
+import styles from "./AddActuality.module.css";
 
 export default function AddActuality() {
 	return (
