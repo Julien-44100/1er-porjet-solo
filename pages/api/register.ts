@@ -1,9 +1,6 @@
-// pages/api/register.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import argon2 from "argon2";
-import { createConnection } from "../lib/db";
-
-type MySqlError = Error & { code?: string };
+import client from "../lib/db";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -20,17 +17,15 @@ export default async function handler(
 
 	try {
 		const hashedPassword = await argon2.hash(password);
-		const connection = await createConnection();
 
-		await connection.execute(
-			"INSERT INTO users (email, password) VALUES (?, ?)",
-			[email, hashedPassword],
-		);
-		await connection.end();
+		await client.execute("INSERT INTO users (email, password) VALUES (?, ?)", [
+			email,
+			hashedPassword,
+		]);
 
 		return res.status(201).json({ message: "Utilisateur créé avec succès" });
 	} catch (error: unknown) {
-		const err = error as MySqlError;
+		const err = error as { code?: string };
 		if (err.code === "ER_DUP_ENTRY") {
 			return res.status(409).json({ error: "Cet email est déjà utilisé" });
 		}
