@@ -35,6 +35,13 @@ export default function NavBar() {
 					</button>
 				</Link>
 			)}
+			{pathname === "/addactuality" && (
+				<Link href="/actuality">
+					<button type="button" className={styles.authButton}>
+						Actuality
+					</button>
+				</Link>
+			)}
 		</div>
 	);
 }
