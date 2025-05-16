@@ -1,97 +1,93 @@
+// app/addactuality/page.tsx
 "use client";
+
+import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./AddActuality.module.css";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation"; // ✅
-
-function AddActuality() {
+export default function AddActuality() {
 	const [nameActuality, setNameActuality] = useState("");
-	const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 	const [actuality, setActuality] = useState("");
-	const router = useRouter(); // ✅
+	const [file, setFile] = useState<File | null>(null);
+	const [preview, setPreview] = useState<string | null>(null);
+	const router = useRouter();
 
-	const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		if (file) {
+	function handlePhotoChange(e: ChangeEvent<HTMLInputElement>) {
+		const f = e.target.files?.[0] ?? null;
+		setFile(f);
+		if (f) {
 			const reader = new FileReader();
-			reader.onloadend = () => {
-				setSelectedPhoto(reader.result as string);
-			};
-			reader.readAsDataURL(file);
+			reader.onload = () => setPreview(reader.result as string);
+			reader.readAsDataURL(f);
+		} else {
+			setPreview(null);
 		}
-	};
+	}
 
-	const handleSubmit = async (event: React.FormEvent) => {
-		event.preventDefault();
+	async function handleSubmit(e: FormEvent) {
+		e.preventDefault();
 
-		const formData = {
-			name_actuality: nameActuality,
-			add_photo: selectedPhoto,
-			actuality: actuality,
-		};
-
-		try {
-			const response = await fetch("/api/actualities", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(formData),
-			});
-
-			if (response.ok) {
-				alert("Actualité ajoutée avec succès !");
-				setNameActuality("");
-				setSelectedPhoto(null);
-				setActuality("");
-
-				router.replace("/actuality"); // ✅ Navigation Next.js
-			} else {
-				alert("Erreur lors de l'ajout de l'actualité.");
-			}
-		} catch (error) {
-			console.error("Erreur :", error);
+		if (!file) {
+			alert("Veuillez choisir une photo avant d'envoyer.");
+			return;
 		}
-	};
+
+		const formData = new FormData();
+		formData.append("photo", file);
+		formData.append("name_actuality", nameActuality);
+		formData.append("actuality", actuality);
+
+try {
+  const response = await fetch("/api/actualities", {
+    method: "POST",
+    body: formData,
+  });
+  if (!response.ok) {
+    const err = await response.json();
+    console.error("Erreur back:", err);
+    alert("Impossible d’ajouter l’actualité !");
+    return;
+  }
+  const { data } = await response.json();
+  alert("Actualité ajoutée avec succès !");
+} catch (err) {
+  console.error(err);
+  alert("Erreur réseau lors de l’envoi.");
+}
+
+
 	return (
 		<div className={styles.card}>
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<h1 className={styles.title}>Nom de l’actualité</h1>
 				<input
 					type="text"
-					name="name_actuality"
-					placeholder="Entrez le titre de l’actualité"
-					required
+					placeholder="Entrez le titre"
 					value={nameActuality}
 					onChange={(e) => setNameActuality(e.target.value)}
+					required
 				/>
 
 				<h2 className={styles.subtitle}>Ajouter une photo</h2>
-				<label htmlFor="photo-upload" className={styles.uploadLabel}>
-					<input
-						type="file"
-						accept="image/*"
-						id="photo-upload"
-						className={styles.fileInput}
-						onChange={handlePhotoChange}
-					/>
-				</label>
-
-				{selectedPhoto && (
+				<input
+					type="file"
+					accept="image/*"
+					onChange={handlePhotoChange}
+					required
+				/>
+				{preview && (
 					<div className={styles.photoPreview}>
-						<img src={selectedPhoto} alt="Aperçu" />
+						<img src={preview} alt="aperçu" />
 					</div>
 				)}
 
-				<label htmlFor="actuality" className={styles.subtitle}>
-					Actualité
-				</label>
+				<h2 className={styles.subtitle}>Actualité</h2>
 				<input
 					type="text"
-					id="actuality"
-					name="actuality"
 					placeholder="Votre texte ici"
-					required
 					value={actuality}
 					onChange={(e) => setActuality(e.target.value)}
+					required
 				/>
 
 				<button type="submit" className={styles.submitButton}>
@@ -101,5 +97,3 @@ function AddActuality() {
 		</div>
 	);
 }
-
-export default AddActuality;
