@@ -27,34 +27,36 @@ export default function AddActuality() {
 	async function handleSubmit(e: FormEvent) {
 		e.preventDefault();
 
-		if (!file) {
+		if (!file || !preview) {
 			alert("Veuillez choisir une photo avant d'envoyer.");
 			return;
 		}
 
-		const formData = new FormData();
-		formData.append("photo", file);
-		formData.append("name_actuality", nameActuality);
-		formData.append("actuality", actuality);
+		try {
+			const response = await fetch("/api/actualities", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					name_actuality: nameActuality,
+					add_photo: preview, // base64 de l'image
+					description_actuality: actuality,
+				}),
+			});
 
-try {
-  const response = await fetch("/api/actualities", {
-    method: "POST",
-    body: formData,
-  });
-  if (!response.ok) {
-    const err = await response.json();
-    console.error("Erreur back:", err);
-    alert("Impossible d’ajouter l’actualité !");
-    return;
-  }
-  const { data } = await response.json();
-  alert("Actualité ajoutée avec succès !");
-} catch (err) {
-  console.error(err);
-  alert("Erreur réseau lors de l’envoi.");
-}
+			if (!response.ok) {
+				const err = await response.json();
+				console.error("Erreur back:", err);
+				alert("Impossible d’ajouter l’actualité !");
+				return;
+			}
 
+			alert("Actualité ajoutée avec succès !");
+			// router.push("/actuality");
+		} catch (err) {
+			console.error(err);
+			alert("Erreur réseau lors de l’envoi.");
+		}
+	}
 
 	return (
 		<div className={styles.card}>
