@@ -37,27 +37,24 @@ export default function AddActuality() {
 		formData.append("name_actuality", nameActuality);
 		formData.append("actuality", actuality);
 
-		try {
-			// dans votre handleSubmit (page.tsx)
-			const res = await fetch("/api/actualities/upload", {
-				method: "POST",
-				body: formData,
-			});
-			if (!res.ok) {
-				const err = await res.json();
-				console.error("Erreur back:", err);
-				alert("Impossible d’ajouter l’actualité.");
-				return;
-			}
-			const { data } = await res.json();
-			// vous pouvez ensuite récupérer `data.filename` pour afficher l’image
-			alert("Actualité ajoutée avec succès !");
-			// …
-		} catch (err) {
-			console.error(err);
-			alert("Erreur réseau lors de l’envoi.");
-		}
-	}
+try {
+  const response = await fetch("/api/actualities", {
+    method: "POST",
+    body: formData,
+  });
+  if (!response.ok) {
+    const err = await response.json();
+    console.error("Erreur back:", err);
+    alert("Impossible d’ajouter l’actualité !");
+    return;
+  }
+  const { data } = await response.json();
+  alert("Actualité ajoutée avec succès !");
+} catch (err) {
+  console.error(err);
+  alert("Erreur réseau lors de l’envoi.");
+}
+
 
 	return (
 		<div className={styles.card}>
