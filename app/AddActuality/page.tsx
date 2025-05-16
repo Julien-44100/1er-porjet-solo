@@ -31,7 +31,7 @@ function AddActuality() {
 		};
 
 		try {
-			const response = await fetch("/api/Add-actuality", {
+			const response = await fetch("/api/actualities", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(formData),
