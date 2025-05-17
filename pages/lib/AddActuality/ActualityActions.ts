@@ -1,4 +1,3 @@
-// pages/api/add-actuality.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import addActualityRepository from "../../lib/AddActuality/ActualityRepository";
 
@@ -28,7 +27,7 @@ export default async function handler(
 
 	if (req.method === "GET") {
 		try {
-			const rows = await addActualityRepository.getAll(); // ou votre méthode get()
+			const rows = await addActualityRepository.getAll();
 			return res.status(200).json(rows);
 		} catch (err) {
 			console.error("Erreur lecture :", err);

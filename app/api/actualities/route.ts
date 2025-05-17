@@ -1,4 +1,3 @@
-// app/api/actualities/route.ts
 import { NextResponse } from "next/server";
 import ActualityRepository from "../../../pages/lib/Actuality/ActualityRepository";
 

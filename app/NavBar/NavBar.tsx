@@ -9,7 +9,6 @@ export default function NavBar() {
 
 	return (
 		<div className={styles.navbar}>
-			{/* Si on est sur "/", on affiche le bouton "Inscription" */}
 			{pathname === "/" && (
 				<Link href="/inscription">
 					<button type="button" className={styles.authButton}>
@@ -17,8 +16,6 @@ export default function NavBar() {
 					</button>
 				</Link>
 			)}
-
-			{/* Si on est sur "/inscription", on affiche le bouton "Connexion" */}
 			{pathname === "/inscription" && (
 				<Link href="/">
 					<button type="button" className={styles.authButton}>
@@ -26,8 +23,6 @@ export default function NavBar() {
 					</button>
 				</Link>
 			)}
-
-			{/* **Seulement** quand on est sur "/actuality" */}
 			{pathname === "/actuality" && (
 				<Link href="/addactuality">
 					<button type="button" className={styles.authButton}>

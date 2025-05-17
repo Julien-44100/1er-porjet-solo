@@ -1,4 +1,3 @@
-// lib/AddActuality/ActualityRepository.ts
 import type { RowDataPacket, ResultSetHeader } from "mysql2";
 import client from "../../lib/db";
 import type { addactuality } from "./AddActuality";
@@ -8,7 +7,7 @@ interface ActualityRow {
 	name_actuality: string;
 	add_photo: string | null;
 	actuality: string;
-	createdAt: Date; // ou `string` suivant votre base
+	createdAt: Date;
 }
 
 class AddActualityRepository {
@@ -21,12 +20,10 @@ class AddActualityRepository {
 	}
 
 	async getAll(): Promise<ActualityRow[]> {
-		// 1) on demande un RowDataPacket[] à mysql2
 		const [rows] = await client.query<RowDataPacket[]>(
 			"SELECT * FROM add_actuality ORDER BY id DESC",
 		);
 
-		// 2) on cast en ActualityRow[]
 		return rows as ActualityRow[];
 	}
 }

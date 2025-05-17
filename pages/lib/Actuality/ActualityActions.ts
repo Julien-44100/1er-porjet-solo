@@ -1,4 +1,3 @@
-// server/actions/ActualityActions.ts
 import type { Request, Response } from "express";
 import ActualityRepository from "./ActualityRepository";
 

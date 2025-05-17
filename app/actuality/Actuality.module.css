@@ -1,5 +1,3 @@
-/* un seul fichier CSS module = Actuality.module.css */
-
 .listingActuality {
 	display: flex;
 	flex-direction: column;

@@ -13,10 +13,8 @@ type ActualityType = {
 export default function Actuality() {
 	const [actualities, setActualities] = useState<ActualityType[]>([]);
 
-	// app/actuality/page.tsx
-	// app/actuality/page.tsx
 	useEffect(() => {
-		fetch("/api/actualities") // appel relatif (même domaine)
+		fetch("/api/actualities")
 			.then((res) => res.json())
 			.then((data) => setActualities(data))
 			.catch(console.error);

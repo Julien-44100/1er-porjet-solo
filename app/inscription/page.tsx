@@ -3,18 +3,13 @@
 import Link from "next/link";
 import styles from "./inscription.module.css";
 import { useRouter } from "next/navigation";
-// Séparer l'import des types
 import type { FormEvent } from "react";
 import { useState } from "react";
 
 export default function Inscriptionpage() {
 	const router = useRouter();
-
-	// États du formulaire
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
-	// Gestion de la soumission
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 

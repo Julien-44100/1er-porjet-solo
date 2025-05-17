@@ -1,4 +1,3 @@
-// lib/ActualityType.ts
 export interface Actuality {
 	id: number;
 	name_actuality: string;
