@@ -1,4 +1,3 @@
-// app/addactuality/page.tsx
 "use client";
 
 import { useState, type FormEvent, type ChangeEvent } from "react";
@@ -38,7 +37,7 @@ export default function AddActuality() {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					name_actuality: nameActuality,
-					add_photo: preview, // base64 de l'image
+					add_photo: preview,
 					description_actuality: actuality,
 				}),
 			});
@@ -51,7 +50,6 @@ export default function AddActuality() {
 			}
 
 			alert("Actualité ajoutée avec succès !");
-			// router.push("/actuality");
 		} catch (err) {
 			console.error(err);
 			alert("Erreur réseau lors de l’envoi.");

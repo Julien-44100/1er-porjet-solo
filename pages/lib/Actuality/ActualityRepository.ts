@@ -1,10 +1,8 @@
-// lib/ActualityRepository.ts
 import type { ResultSetHeader, RowDataPacket } from "mysql2";
 import client from "../db";
 import type { Actuality } from "./ActualyType";
 
 export class ActualityRepository {
-	/** Récupère toutes les actualités */
 	async findAll(): Promise<Actuality[]> {
 		const [rows] = await client.query<RowDataPacket[]>(
 			`SELECT
@@ -18,7 +16,6 @@ export class ActualityRepository {
 		return rows as Actuality[];
 	}
 
-	/** Crée une actualité et retourne son ID */
 	async create(data: Omit<Actuality, "id" | "createdAt">): Promise<number> {
 		const [result] = await client.query<ResultSetHeader>(
 			`INSERT INTO actuality (name_actuality, add_photo, description_actuality)
@@ -28,7 +25,6 @@ export class ActualityRepository {
 		return result.insertId;
 	}
 
-	/** Met à jour une actualité existante */
 	async update(
 		id: number,
 		data: Partial<Omit<Actuality, "id" | "createdAt">>,
